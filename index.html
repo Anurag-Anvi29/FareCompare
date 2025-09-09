@@ -4,392 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cab Fare Compare</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Link to Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent1: #4cc9f0;
-            --accent2: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4bb543;
-            --warning: #ffcc00;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-        }
-        
-        body {
-            background-color: #f5f7fb;
-            color: var(--dark);
-            padding-bottom: 80px;
-        }
-        
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        }
-        
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 20px;
-            border-radius: 0 0 20px 20px;
-            position: relative;
-        }
-        
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-        }
-        
-        .user-actions a {
-            color: white;
-            margin-left: 15px;
-            font-size: 18px;
-        }
-        
-        /* Search Form */
-        .search-form {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .input-group {
-            margin-bottom: 15px;
-            position: relative;
-        }
-        
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-        }
-        
-        .input-group input {
-            width: 100%;
-            padding: 15px 15px 15px 45px;
-            border: 1px solid var(--light-gray);
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        
-        .datetime-row {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .datetime-row .input-group {
-            flex: 1;
-        }
-        
-        .search-btn {
-            background: linear-gradient(135deg, var(--accent2), #ff4da0);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        
-        /* Results Section */
-        .results-section {
-            padding: 20px;
-        }
-        
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-        
-        .filter-btn {
-            background: var(--light);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-        
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-        
-        /* Ride Cards */
-        .ride-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .ride-card {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            position: relative;
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-        
-        .ride-card.best-price {
-            border-color: var(--success);
-        }
-        
-        .ride-card.fastest {
-            border-color: var(--accent1);
-        }
-        
-        .ride-logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-        }
-        
-        .uber-logo { background: #000; }
-        .ola-logo { background: #4caf50; }
-        .rapido-logo { background: #ff6b35; }
-        
-        .ride-info {
-            flex: 1;
-        }
-        
-        .ride-name {
-            font-weight: 600;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        
-        .ride-details {
-            font-size: 14px;
-            color: var(--gray);
-        }
-        
-        .ride-price {
-            text-align: right;
-        }
-        
-        .price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--dark);
-        }
-        
-        .time {
-            font-size: 14px;
-            color: var(--gray);
-        }
-        
-        .badge {
-            position: absolute;
-            top: -5px;
-            right: 10px;
-            background: var(--success);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .badge.fastest {
-            background: var(--accent1);
-        }
-    </style>
 </head>
 <body>
+
     <div class="container">
-        <!-- Header -->
+        <!-- Header Section -->
         <header>
             <div class="header-top">
                 <div class="logo">
-                    <i class="fas fa-taxi"></i>
-                    CabCompare
+                    <i class="fa-solid fa-car-side"></i> CabCompare
                 </div>
                 <div class="user-actions">
-                    <a href="#"><i class="fas fa-bell"></i></a>
-                    <a href="#"><i class="fas fa-user-circle"></i></a>
+                    <a href="#"><i class="fa-solid fa-bell"></i></a>
+                    <a href="#"><i class="fa-solid fa-user"></i></a>
                 </div>
             </div>
-            
             <div class="search-form">
                 <div class="input-group">
-                    <i class="fas fa-circle"></i>
-                    <input type="text" id="pickup" placeholder="Pickup location" value="Your current location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input type="text" placeholder="From: Enter pickup location">
                 </div>
                 <div class="input-group">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" id="destination" placeholder="Where to?">
+                    <i class="fa-solid fa-map-marker-alt"></i>
+                    <input type="text" placeholder="To: Enter drop-off location">
                 </div>
                 <div class="datetime-row">
                     <div class="input-group">
-                        <i class="fas fa-calendar"></i>
-                        <input type="date" id="date">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <input type="date">
                     </div>
                     <div class="input-group">
-                        <i class="fas fa-clock"></i>
-                        <input type="time" id="time">
+                        <i class="fa-solid fa-clock"></i>
+                        <input type="time">
                     </div>
                 </div>
-                <button class="search-btn" onclick="searchRides()">
-                    <i class="fas fa-search"></i> Compare Prices
-                </button>
+                <button class="search-btn">Find Cabs</button>
             </div>
         </header>
-        
+
         <!-- Results Section -->
-        <div class="results-section">
+        <main class="results-section">
             <div class="section-title">
                 <span>Available Rides</span>
-                <span id="result-count">3 options</span>
+                <a href="#" class="view-all">View All</a>
             </div>
             
             <div class="filters">
                 <button class="filter-btn active">All</button>
                 <button class="filter-btn">Cheapest</button>
                 <button class="filter-btn">Fastest</button>
-                <button class="filter-btn">Premium</button>
+                <button class="filter-btn">Comfort</button>
             </div>
-            
-            <div class="ride-cards" id="ride-cards">
-                <!-- Sample ride cards -->
+
+            <div class="ride-cards">
+                <!-- Ride Card 1: Best Price -->
                 <div class="ride-card best-price">
-                    <div class="badge">Best Price</div>
-                    <div class="ride-logo ola-logo">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <div class="ride-info">
-                        <div class="ride-name">Ola Mini</div>
-                        <div class="ride-details">4 seats • AC • 2 min away</div>
+                    <span class="badge">Best Price</span>
+                    <img src="https://via.placeholder.com/50" alt="Uber Logo" class="ride-logo">
+                    <div class="ride-details">
+                        <span class="ride-name">Uber Go</span>
+                        <div class="ride-info">
+                            <span><i class="fa-solid fa-clock"></i> 8 min</span>
+                            <span><i class="fa-solid fa-user-group"></i> 4 seats</span>
+                        </div>
                     </div>
                     <div class="ride-price">
-                        <div class="price">₹120</div>
-                        <div class="time">8 min</div>
+                        <span class="price">$12.50</span>
+                        <span class="eta">10:45 AM</span>
                     </div>
                 </div>
-                
+
+                <!-- Ride Card 2: Fastest -->
                 <div class="ride-card fastest">
-                    <div class="badge fastest">Fastest</div>
-                    <div class="ride-logo uber-logo">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <div class="ride-info">
-                        <div class="ride-name">Uber Go</div>
-                        <div class="ride-details">4 seats • AC • 1 min away</div>
+                    <span class="badge">Fastest</span>
+                    <img src="https://via.placeholder.com/50" alt="Lyft Logo" class="ride-logo">
+                    <div class="ride-details">
+                        <span class="ride-name">Lyft Standard</span>
+                        <div class="ride-info">
+                            <span><i class="fa-solid fa-clock"></i> 5 min</span>
+                            <span><i class="fa-solid fa-user-group"></i> 4 seats</span>
+                        </div>
                     </div>
                     <div class="ride-price">
-                        <div class="price">₹135</div>
-                        <div class="time">6 min</div>
+                        <span class="price">$14.00</span>
+                        <span class="eta">10:42 AM</span>
                     </div>
                 </div>
-                
+
+                <!-- Ride Card 3: Regular -->
                 <div class="ride-card">
-                    <div class="ride-logo rapido-logo">
-                        <i class="fas fa-motorcycle"></i>
-                    </div>
-                    <div class="ride-info">
-                        <div class="ride-name">Rapido Bike</div>
-                        <div class="ride-details">2-wheeler • 3 min away</div>
+                    <img src="https://via.placeholder.com/50" alt="Ola Logo" class="ride-logo">
+                    <div class="ride-details">
+                        <span class="ride-name">Ola Micro</span>
+                        <div class="ride-info">
+                            <span><i class="fa-solid fa-clock"></i> 10 min</span>
+                            <span><i class="fa-solid fa-user-group"></i> 3 seats</span>
+                        </div>
                     </div>
                     <div class="ride-price">
-                        <div class="price">₹45</div>
-                        <div class="time">5 min</div>
+                        <span class="price">$13.00</span>
+                        <span class="eta">10:47 AM</span>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-list"></i>
+                <span>My Rides</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Payment</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Profile</span>
+            </a>
+        </nav>
     </div>
 
-    <script>
-        // Set current date and time as default
-        const now = new Date();
-        document.getElementById('date').value = now.toISOString().split('T')[0];
-        document.getElementById('time').value = now.toTimeString().slice(0,5);
-        
-        function searchRides() {
-            const pickup = document.getElementById('pickup').value;
-            const destination = document.getElementById('destination').value;
-            
-            if (!pickup || !destination) {
-                alert('Please enter both pickup and destination locations');
-                return;
-            }
-            
-            // Simulate search loading
-            const btn = document.querySelector('.search-btn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                // Results are already shown for demo
-            }, 2000);
-        }
-        
-        // Filter functionality
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    </script>
 </body>
 </html>
