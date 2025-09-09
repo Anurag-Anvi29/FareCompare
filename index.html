@@ -154,6 +154,7 @@
             border-radius: 20px;
             font-size: 14px;
             white-space: nowrap;
+            cursor: pointer;
         }
         
         .filter-btn.active {
@@ -177,6 +178,7 @@
             align-items: center;
             position: relative;
             border: 2px solid transparent;
+            cursor: pointer;
         }
         
         .ride-card.best-price {
@@ -187,373 +189,205 @@
             border-color: var(--accent1);
         }
         
-        .badge {
-            position: absolute;
-            top: -10px;
-            right: 15px;
-            background: var(--success);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .fastest-badge {
-            background: var(--accent1);
-        }
-        
-        .provider-logo {
+        .ride-logo {
             width: 50px;
             height: 50px;
+            border-radius: 10px;
+            margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            margin-right: 15px;
             font-size: 24px;
             color: white;
         }
         
-        .uber { background: #000; }
-        .ola { background: #d70f64; }
-        .rapido { background: #ff6900; }
+        .uber-logo { background: #000; }
+        .ola-logo { background: #4caf50; }
+        .rapido-logo { background: #ff6b35; }
         
-        .ride-details {
+        .ride-info {
             flex: 1;
         }
         
-        .ride-type {
+        .ride-name {
             font-weight: 600;
+            font-size: 16px;
             margin-bottom: 5px;
         }
         
-        .ride-meta {
-            display: flex;
-            gap: 15px;
-            color: var(--gray);
+        .ride-details {
             font-size: 14px;
+            color: var(--gray);
         }
         
         .ride-price {
+            text-align: right;
+        }
+        
+        .price {
             font-size: 18px;
             font-weight: 700;
+            color: var(--dark);
         }
         
-        .book-btn {
-            background: var(--primary);
+        .time {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            background: var(--success);
             color: white;
-            border: none;
-            padding: 8px 15px;
+            padding: 3px 8px;
             border-radius: 10px;
+            font-size: 12px;
             font-weight: 600;
-            cursor: pointer;
         }
         
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            max-width: 480px;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--gray);
-            font-size: 14px;
-        }
-        
-        .nav-item.active {
-            color: var(--primary);
-        }
-        
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-        
-        /* Map Section */
-        .map-container {
-            height: 200px;
-            background: var(--light-gray);
-            margin: 20px;
-            border-radius: 15px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-        }
-        
-        /* Saved Routes */
-        .saved-routes {
-            padding: 20px;
-        }
-        
-        .route-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: white;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        }
-        
-        .route-info i {
-            margin-right: 10px;
-            color: var(--primary);
-        }
-        
-        .route-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .route-address {
-            color: var(--gray);
-            font-size: 14px;
-        }
-        
-        /* Responsive Adjustments */
-        @media (max-width: 480px) {
-            .container {
-                border-radius: 0;
-            }
-            
-            header {
-                border-radius: 0 0 20px 20px;
-            }
+        .badge.fastest {
+            background: var(--accent1);
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header>
             <div class="header-top">
                 <div class="logo">
                     <i class="fas fa-taxi"></i>
-                    Cab Fare Compare
+                    CabCompare
                 </div>
                 <div class="user-actions">
                     <a href="#"><i class="fas fa-bell"></i></a>
-                    <a href="#"><i class="fas fa-user"></i></a>
+                    <a href="#"><i class="fas fa-user-circle"></i></a>
                 </div>
             </div>
             
             <div class="search-form">
                 <div class="input-group">
-                    <i class="fas fa-location-dot"></i>
-                    <input type="text" placeholder="Pickup location" value="Kalkaji, New Delhi">
+                    <i class="fas fa-circle"></i>
+                    <input type="text" id="pickup" placeholder="Pickup location" value="Your current location">
                 </div>
                 <div class="input-group">
-                    <i class="fas fa-location-dot"></i>
-                    <input type="text" placeholder="Drop location" value="Sarojini Nagar, New Delhi">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" id="destination" placeholder="Where to?">
                 </div>
                 <div class="datetime-row">
                     <div class="input-group">
                         <i class="fas fa-calendar"></i>
-                        <input type="text" placeholder="Today" value="Today">
+                        <input type="date" id="date">
                     </div>
                     <div class="input-group">
                         <i class="fas fa-clock"></i>
-                        <input type="text" placeholder="Now" value="10:30 AM">
+                        <input type="time" id="time">
                     </div>
                 </div>
-                <button class="search-btn">Compare Prices</button>
+                <button class="search-btn" onclick="searchRides()">
+                    <i class="fas fa-search"></i> Compare Prices
+                </button>
             </div>
         </header>
         
-        <div class="map-container">
-            <i class="fas fa-map-marked-alt"></i>
-            <span>Interactive Map View</span>
-        </div>
-        
+        <!-- Results Section -->
         <div class="results-section">
             <div class="section-title">
                 <span>Available Rides</span>
-                <a href="#">Sort</a>
+                <span id="result-count">3 options</span>
             </div>
             
             <div class="filters">
                 <button class="filter-btn active">All</button>
-                <button class="filter-btn">Economy</button>
-                <button class="filter-btn">Comfort</button>
+                <button class="filter-btn">Cheapest</button>
+                <button class="filter-btn">Fastest</button>
                 <button class="filter-btn">Premium</button>
-                <button class="filter-btn">Auto</button>
-                <button class="filter-btn">Bike</button>
             </div>
             
-            <div class="ride-cards">
+            <div class="ride-cards" id="ride-cards">
+                <!-- Sample ride cards -->
                 <div class="ride-card best-price">
-                    <span class="badge">Best Price</span>
-                    <div class="provider-logo ola">
-                        <i class="fas fa-taxi"></i>
+                    <div class="badge">Best Price</div>
+                    <div class="ride-logo ola-logo">
+                        <i class="fas fa-car"></i>
                     </div>
-                    <div class="ride-details">
-                        <div class="ride-type">Ola Micro</div>
-                        <div class="ride-meta">
-                            <span><i class="fas fa-clock"></i> 5 min</span>
-                            <span><i class="fas fa-user"></i> 4 seats</span>
-                        </div>
+                    <div class="ride-info">
+                        <div class="ride-name">Ola Mini</div>
+                        <div class="ride-details">4 seats • AC • 2 min away</div>
                     </div>
-                    <div class="ride-price">₹245</div>
-                    <button class="book-btn">Book</button>
+                    <div class="ride-price">
+                        <div class="price">₹120</div>
+                        <div class="time">8 min</div>
+                    </div>
                 </div>
                 
                 <div class="ride-card fastest">
-                    <span class="badge fastest-badge">Fastest</span>
-                    <div class="provider-logo uber">
-                        <i class="fas fa-taxi"></i>
+                    <div class="badge fastest">Fastest</div>
+                    <div class="ride-logo uber-logo">
+                        <i class="fas fa-car"></i>
                     </div>
-                    <div class="ride-details">
-                        <div class="ride-type">Uber Go</div>
-                        <div class="ride-meta">
-                            <span><i class="fas fa-clock"></i> 3 min</span>
-                            <span><i class="fas fa-user"></i> 4 seats</span>
-                        </div>
+                    <div class="ride-info">
+                        <div class="ride-name">Uber Go</div>
+                        <div class="ride-details">4 seats • AC • 1 min away</div>
                     </div>
-                    <div class="ride-price">₹265</div>
-                    <button class="book-btn">Book</button>
+                    <div class="ride-price">
+                        <div class="price">₹135</div>
+                        <div class="time">6 min</div>
+                    </div>
                 </div>
                 
                 <div class="ride-card">
-                    <div class="provider-logo rapido">
+                    <div class="ride-logo rapido-logo">
                         <i class="fas fa-motorcycle"></i>
                     </div>
-                    <div class="ride-details">
-                        <div class="ride-type">Rapido Bike</div>
-                        <div class="ride-meta">
-                            <span><i class="fas fa-clock"></i> 2 min</span>
-                            <span><i class="fas fa-user"></i> 1 seat</span>
-                        </div>
+                    <div class="ride-info">
+                        <div class="ride-name">Rapido Bike</div>
+                        <div class="ride-details">2-wheeler • 3 min away</div>
                     </div>
-                    <div class="ride-price">₹120</div>
-                    <button class="book-btn">Book</button>
-                </div>
-                
-                <div class="ride-card">
-                    <div class="provider-logo ola">
-                        <i class="fas fa-taxi"></i>
+                    <div class="ride-price">
+                        <div class="price">₹45</div>
+                        <div class="time">5 min</div>
                     </div>
-                    <div class="ride-details">
-                        <div class="ride-type">Ola Auto</div>
-                        <div class="ride-meta">
-                            <span><i class="fas fa-clock"></i> 8 min</span>
-                            <span><i class="fas fa-user"></i> 3 seats</span>
-                        </div>
-                    </div>
-                    <div class="ride-price">₹180</div>
-                    <button class="book-btn">Book</button>
                 </div>
-                
-                <div class="ride-card">
-                    <div class="provider-logo uber">
-                        <i class="fas fa-taxi"></i>
-                    </div>
-                    <div class="ride-details">
-                        <div class="ride-type">Uber Premier</div>
-                        <div class="ride-meta">
-                            <span><i class="fas fa-clock"></i> 7 min</span>
-                            <span><i class="fas fa-user"></i> 4 seats</span>
-                        </div>
-                    </div>
-                    <div class="ride-price">₹355</div>
-                    <button class="book-btn">Book</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="saved-routes">
-            <div class="section-title">
-                <span>Saved Routes</span>
-                <a href="#">See all</a>
-            </div>
-            
-            <div class="route-card">
-                <div class="route-info">
-                    <div class="route-name">
-                        <i class="fas fa-home"></i>
-                        Home to Office
-                    </div>
-                    <div class="route-address">HSR Layout to Electronic City</div>
-                </div>
-                <div class="route-action">
-                    <button class="book-btn">Select</button>
-                </div>
-            </div>
-            
-            <div class="route-card">
-                <div class="route-info">
-                    <div class="route-name">
-                        <i class="fas fa-building"></i>
-                        Office to Gym
-                    </div>
-                    <div class="route-address">Electronic City to Koramangala</div>
-                </div>
-                <div class="route-action">
-                    <button class="book-btn">Select</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bottom-nav">
-            <div class="nav-item active">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-history"></i>
-                <span>History</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-bell"></i>
-                <span>Alerts</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-user"></i>
-                <span>Profile</span>
             </div>
         </div>
     </div>
 
     <script>
-        // Simple interactive functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Filter buttons
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
+        // Set current date and time as default
+        const now = new Date();
+        document.getElementById('date').value = now.toISOString().split('T')[0];
+        document.getElementById('time').value = now.toTimeString().slice(0,5);
+        
+        function searchRides() {
+            const pickup = document.getElementById('pickup').value;
+            const destination = document.getElementById('destination').value;
             
-            // Book buttons
-            const bookButtons = document.querySelectorAll('.book-btn');
-            bookButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    alert('Redirecting to the selected cab provider app...');
-                });
-            });
+            if (!pickup || !destination) {
+                alert('Please enter both pickup and destination locations');
+                return;
+            }
             
-            // Bottom navigation
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    this.classList.add('active');
-                });
+            // Simulate search loading
+            const btn = document.querySelector('.search-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                // Results are already shown for demo
+            }, 2000);
+        }
+        
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
             });
         });
     </script>
