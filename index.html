@@ -558,4 +558,109 @@
         });
     </script>
 </body>
+    <!-- Profile Modal Structure -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>User Profile</h2>
+        <div id="profileDetails">
+            <p><strong>Name:</strong> <span id="profileName">N/A</span></p>
+            <p><strong>Email:</strong> <span id="profileEmail">N/A</span></p>
+            <p><strong>Phone:</strong> <span id="profilePhone">N/A</span></p>
+            <!-- Add more fields as needed -->
+        </div>
+        <button id="editProfileBtn" class="profile-btn">Edit Profile</button>
+        <button id="saveProfileBtn" class="profile-btn" style="display: none;">Save Changes</button>
+    </div>
+</div>
+
+<!-- Styling for the modal (add to your CSS or a new CSS file) -->
+<style>
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto; /* 15% from the top and centered */
+        padding: 30px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 450px;
+        border-radius: 15px;
+        position: relative;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+
+    .close-button {
+        color: #aaa;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: black;
+        text-decoration: none;
+    }
+
+    .modal-content h2 {
+        margin-bottom: 25px;
+        color: var(--primary);
+        text-align: center;
+    }
+
+    #profileDetails p {
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+
+    #profileDetails span {
+        font-weight: 500;
+        color: var(--dark);
+    }
+
+    .profile-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 20px;
+        width: 100%;
+        transition: background 0.3s ease;
+    }
+
+    .profile-btn:hover {
+        background: var(--secondary);
+    }
+
+    /* Styles for editable fields */
+    .modal-content input[type="text"],
+    .modal-content input[type="email"],
+    .modal-content input[type="tel"] {
+        width: calc(100% - 20px); /* Adjust for padding */
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid var(--light-gray);
+        border-radius: 8px;
+        font-size: 15px;
+    }
+</style>
 </html>
