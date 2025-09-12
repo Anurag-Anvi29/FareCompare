@@ -559,9 +559,32 @@
             });
         });
     </script>
+    <!-- Profile Modal (Pop-up) Structure -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>User Profile</h2>
+        <div id="profileDetails">
+            <p><strong>Name:</strong> <span id="profileName">N/A</span></p>
+            <p><strong>Email:</strong> <span id="profileEmail">N/A</span></p>
+            <p><strong>Phone:</strong> <span id="profilePhone">N/A</span></p>
+        </div>
+        <button id="editProfileBtn" class="profile-btn">Edit Profile</button>
+        <button id="saveProfileBtn" class="profile-btn" style="display: none;">Save Changes</button>
+    </div>
+</div>
+
+<div class="results-section" id="historySection" style="display: none;">
+    <h3 class="section-title">
+        <span><i class="fas fa-history"></i> Ride History</span>
+        <button id="clearHistoryBtn" class="filter-btn"><i class="fas fa-trash-alt"></i> Clear All</button>
+    </h3>
+    <div id="historyList" class="ride-cards">
+        <p id="noHistoryMessage" style="text-align: center; color: var(--gray);">No past rides found.</p>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
-    <!-- Profile Modal Structure -->
 <div id="profileModal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
@@ -577,7 +600,6 @@
     </div>
 </div>
 
-<!-- Styling for the modal (add to your CSS or a new CSS file) -->
 <style>
     .modal {
         display: none; /* Hidden by default */
@@ -654,7 +676,6 @@
         background: var(--secondary);
     }
 
-    /* Styles for editable fields */
     .modal-content input[type="text"],
     .modal-content input[type="email"],
     .modal-content input[type="tel"] {
